@@ -5,12 +5,19 @@ import ChevronRightIcon from "./assets/icons/chevron-right.svg?react";
 import Badge from "./components/badge";
 import Alert from "./components/alert";
 import Divider from "./components/divider";
-import InputText from "./components/Input-text";
+import InputText from "./components/Input-Text";
 import SearchIcon from "./assets/icons/search.svg?react";
 import InputCheckBox from "./components/Input-CheckBox";
 import InputSingleFile from "./components/Input-Single-File";
+import { useForm } from "react-hook-form";
+import ImageFilePreview from "./components/image-file-preview";
 
 export default function App() {
+  const form = useForm();
+
+  const file = form.watch("file");
+  const fileSource = file?.[0] ? URL.createObjectURL(file[0]) : undefined;
+
   return (
     <div className="grid gap-7 p-6">
       <div className="flex gap-3">
@@ -62,7 +69,13 @@ export default function App() {
       </div>
 
       <div>
-        <InputSingleFile />
+        <InputSingleFile
+          form={form}
+          allowedExtensions={["png", "jpg", "jpeg", "webp"]}
+          maxFileSizeInMB={50}
+          replaceBy={<ImageFilePreview src={fileSource} alt="Imagem" />}
+          {...form.register("file")}
+        />
       </div>
     </div>
   );
