@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import PageComponents from "./pages/page-components";
+import PageComponents from "./pages/Page-Components";
 import LayoutMain from "./pages/LayoutMain";
 import PageHome from "./pages/Page-Home";
 import PagePhotoDetails from "./pages/page-photo-details";
