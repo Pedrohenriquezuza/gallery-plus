@@ -14,35 +14,13 @@ import type { Photo } from "../../photos/models/photo";
 import SelectCheckBoxIllustration from "../../../assets/images/select-checkbox.svg?react";
 import Skeleton from "../../../components/skeleton";
 import PhotoImageSelectable from "../../photos/components/photo-image-selectable";
+import usePhotos from "../../photos/hooks/use-photos";
 interface AlbumNewDialogueProps {
   trigger: React.ReactNode;
 }
 
 export default function AlbumNewDialogue({ trigger }: AlbumNewDialogueProps) {
-  //TODO: UTilizar API quando estiver pronto
-  const isLoadingPhotos = false;
-  const photos: Photo[] = [
-    {
-      id: "123",
-      title: "Olá mundo",
-      imageId: "portrait-tower.png",
-      albums: [
-        { id: "1234", title: "Album 1" },
-        { id: "4321", title: "Album 2" },
-        { id: "8976", title: "Album 3" },
-      ],
-    },
-    {
-      id: "321",
-      title: "Olá mundo",
-      imageId: "portrait-tower.png",
-      albums: [
-        { id: "1234", title: "Album 1" },
-        { id: "4321", title: "Album 2" },
-        { id: "8976", title: "Album 3" },
-      ],
-    },
-  ];
+  const {photos, isLoadingPhotos} = usePhotos()
 
   function handleTogglePhoto(selected: boolean, photoId: string){
     console.log(selected, photoId)
@@ -66,7 +44,7 @@ export default function AlbumNewDialogue({ trigger }: AlbumNewDialogueProps) {
                 {photos.map((photo) => (
                   <PhotoImageSelectable
                     key={photo.id}
-                    src={`/images/${photo.imageId}`}
+                    src={`${import.meta.env.VITE_IMAGES_URL}/${photo.imageId}`}
                     title={photo.title}
                     ImageClassName="w-20 h-20 "
                     onSelectImage={(select) => handleTogglePhoto(select, photo.id)}
