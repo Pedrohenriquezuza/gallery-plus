@@ -1,3 +1,4 @@
+import { useParams } from "react-router";
 import Button from "../components/button";
 import Container from "../components/container";
 import ImagePreview from "../components/image-preview";
@@ -6,7 +7,11 @@ import Text from "../components/text";
 import AlbumListSelectable from "../contexts/albums/components/albums-list-selectable";
 import PhotosNavigator from "../contexts/photos/components/photos-navigator";
 import type { Photo } from "../contexts/photos/models/photo";
+import useAlbums from "../contexts/albums/hooks/use-albums";
 export default function PagePhotoDetails() {
+  const {id} = useParams();
+  const {albums, isLoadingAlbums } = useAlbums();
+
   //Apenas para fazer o teste do mock
   const isLoadingPhoto = false;
 
@@ -61,12 +66,8 @@ export default function PagePhotoDetails() {
 
           <AlbumListSelectable
             photo={photo}
-            albums={[
-              { id: "1234", title: "Album 1" },
-              { id: "4321", title: "Album 2" },
-              { id: "8976", title: "Album 3" },
-            ]}
-            loading={isLoadingPhoto}
+            albums={albums}
+            loading={isLoadingAlbums}
           />
         </div>
       </div>
