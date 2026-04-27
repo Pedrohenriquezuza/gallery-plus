@@ -1,6 +1,6 @@
 import Container from "./container";
 import Logo from "../assets/images/galeria-plus-full-logo.svg?react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import cx from "classnames";
 import Button from "./button";
 import PhotosSearch from "./photos-search";
@@ -11,6 +11,8 @@ import AlbumNewDialogue from "../contexts/albums/components/album-new-dialogue";
 interface MainHeaderProps extends React.ComponentProps<typeof Container> {}
 
 export default function MainHeader({ className, ...props }: MainHeaderProps) {
+  const { pathname } = useLocation();
+
   return (
     <Container
       as="header"
@@ -21,9 +23,14 @@ export default function MainHeader({ className, ...props }: MainHeaderProps) {
         <Logo className="h-5" />
       </Link>
 
-      <PhotosSearch />
+      {pathname === "/" && (
+        <>
+          <PhotosSearch />
 
-      <Divider orientation="vertical" className="h-10" />
+          <Divider orientation="vertical" className="h-10" />
+        </>
+      )}
+
       <div className="flex items-center gap-3">
         <PhotoNewDialogue trigger={<Button>Nova Foto</Button>} />
 
